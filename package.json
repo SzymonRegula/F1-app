@@ -1,0 +1,23 @@
+{
+  "name": "f1-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SzymonRegula/F1-app.git"
+  },
+  "author": "Szymon Reguła",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SzymonRegula/F1-app/issues"
+  },
+  "homepage": "https://github.com/SzymonRegula/F1-app#readme",
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  }
+}
