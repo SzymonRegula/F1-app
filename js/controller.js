@@ -7,14 +7,15 @@ const driversBtn = document.querySelector('.drivers');
 async function showSchedule() {
   if (model.state.schedule.length === 0) {
     await model.getScheduleData();
+    view.renderScheduleSection(model.state.schedule);
   }
-  view.renderScheduleSection(model.state.schedule);
 }
 
-async function showDrivers() {}
+async function showDrivers() {
+  model.getDriversData();
+}
 
 function init() {
-  model.getDriversData();
   scheduleBtn.addEventListener('click', showSchedule);
   driversBtn.addEventListener('click', showDrivers);
 }

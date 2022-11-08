@@ -26,21 +26,28 @@ function getMonth(round) {
   }`;
 }
 
-export async function renderScheduleSection(data) {
+export async function renderScheduleSection(schedule) {
   const parentEl = document.querySelector('.section-schedule');
   parentEl.innerHTML = '';
-  await data.forEach((round) => {
+  await schedule.forEach((round) => {
+    const country = round.Circuit.Location.country;
     const markup = `
         <div class="round-card">
           <ul class="round-info-list">
-            <li class="round-number">Round ${round.round}</li>
-            <li class="date">${getDays(round)} ${getMonth(round)}</li>
-            <li class="country">${round.Circuit.Location.country}</li>
+            <li class="round-number">Round ${round.round}</li>      
+            <li class="round-date days">${getDays(round)}</li>
+            <li class="round-date month">${getMonth(round)}</li>
+            <li class="flag"><img class="flag-img" src="${
+              round.countryFlag
+            }" alt="${country} flag" /></li>
+            <li class="country">${country}</li>
             <li class="race-name">${round.raceName}</li>
-            <li class="quali">Qualifying: ${
+            <li class="quali"><span class="font-bold">Qualifying:</span> ${
               round.Qualifying.date
             }, ${round.Qualifying.time.slice(0, 5)}</li>
-            <li class="race">Race: ${round.date}, ${round.time.slice(0, 5)}</li>
+            <li class="race"><span class="font-bold">Race:</span> ${
+              round.date
+            }, ${round.time.slice(0, 5)}</li>
           </ul>
         </div>
   `;
