@@ -1,14 +1,21 @@
 import * as model from './model.js';
-import * as view from './view.js';
+import scheduleView from './views/scheduleView.js';
+import scheduleModalView from './views/scheduleModalView';
 
-const scheduleBtn = document.querySelector('.schedule');
-const driversBtn = document.querySelector('.drivers');
-
-async function showSchedule() {
+async function controlSchedule() {
   if (model.state.schedule.length === 0) {
     await model.getScheduleData();
-    view.renderScheduleSection(model.state.schedule);
+    scheduleView.render(model.state.schedule);
   }
+}
+
+function controlScheduleModal(roundNr) {
+  const [data] = model.state.schedule.filter(
+    (round) => round.round === roundNr
+  );
+  console.log(data);
+  scheduleModalView.render(data);
+  scheduleModalView.showModal();
 }
 
 async function showDrivers() {
@@ -16,7 +23,10 @@ async function showDrivers() {
 }
 
 function init() {
-  scheduleBtn.addEventListener('click', showSchedule);
-  driversBtn.addEventListener('click', showDrivers);
+  scheduleView.addHandlerClick(controlSchedule);
+  scheduleModalView.addHandlerClick(controlScheduleModal);
+
+  // driversBtn.addEventListener('click', showDrivers);
+  // sectionSchedule.addEventListener('click', showScheduleModal);
 }
 init();

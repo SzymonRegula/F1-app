@@ -1,27 +1,61 @@
 import { API_F1_URL, API_SPORTS_KEY, API_SPORTS_URL } from './config';
 
+export const state = {
+  schedule: [],
+  drivers: [],
+};
+
 // const myHeaders = new Headers();
 // myHeaders.append('x-rapidapi-key', API_SPORTS_KEY);
 // myHeaders.append('x-rapidapi-host', 'v1.formula-1.api-sports.io');
-
 // const requestOptions = {
 //   method: 'GET',
 //   headers: myHeaders,
 //   redirect: 'follow',
 // };
 
-// export async function getDrivers() {
-//   const response = await fetch(`${API_SPORTS_URL}drivers`, requestOptions);
-//   const data = await response.json();
-//   console.log(data);
+// async function getCityId(city) {
+//   try {
+//     const responseId = await fetch(
+//       `${API_SPORTS_URL}competitions?city=${city}`,
+//       requestOptions
+//     );
+//     const dataId = await responseId.json();
+//     const [competition] = dataId.response;
+//     console.log(dataId, competition);
+//     return competition.id;
+//   } catch (err) {
+//     console.error(err);
+//   }
 // }
-// // getDrivers();
 
-export const state = {
-  // season: new Date().getFullYear(),
-  schedule: [],
-  drivers: [],
-};
+// export async function getExtraCircuitData(city) {
+//   try {
+//     const cityId = await getCityId(city);
+//     console.log(cityId);
+//     if (!cityId) return;
+//     const response = await fetch(
+//       `${API_SPORTS_URL}circuits?competition=${cityId}`,
+//       requestOptions
+//     );
+//     const data = await response.json();
+//     const [circuitData] = data.response;
+
+//     console.log(data, circuitData);
+
+//     if (data.results === 0) return;
+
+//     state.schedule.map((round) =>
+//       round.Circuit.Location.locality.toLowerCase() === city.toLowerCase()
+//         ? (round.extraData = circuitData)
+//         : ''
+//     );
+//     console.log(state.schedule);
+//     return circuitData;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
 
 export async function getScheduleData() {
   try {
