@@ -1,9 +1,10 @@
-import View from './view';
+import { Round } from '../types/types.js';
+import View from './view.js';
 
 class ScheduleModalView extends View {
-  parentEl = document.querySelector('.modal-schedule');
   sectionSchedule = document.querySelector('.section-schedule');
   backdrop = document.querySelector('.backdrop');
+  parentEl: HTMLElement = document.querySelector('.modal-schedule');
 
   constructor() {
     super();
@@ -24,16 +25,18 @@ class ScheduleModalView extends View {
     this.backdrop.addEventListener('click', this.hideModal.bind(this));
   }
 
-  addHandlerClick(handler) {
+  addHandlerClick(handler: (roundNr: string) => void) {
     this.sectionSchedule.addEventListener('click', function (e) {
-      const card = e.target.closest('.round-card');
+      const card: HTMLElement = (e.target as HTMLElement).closest(
+        '.round-card'
+      );
       if (!card) return;
       const roundNr = card.dataset.round;
       handler(roundNr);
     });
   }
 
-  generateMarkup(data) {
+  generateMarkup(data: Round) {
     return `
           <div class="round-card" data-round="${data.round}">
             <p class="round-number">Round ${data.round}</p>      

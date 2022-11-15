@@ -1,6 +1,6 @@
 import * as model from './model.js';
 import scheduleView from './views/scheduleView.js';
-import scheduleModalView from './views/scheduleModalView';
+import scheduleModalView from './views/scheduleModalView.js';
 
 async function controlSchedule() {
   if (model.state.schedule.length === 0) {
@@ -9,7 +9,7 @@ async function controlSchedule() {
   }
 }
 
-function controlScheduleModal(roundNr) {
+function controlScheduleModal(roundNr: string) {
   const [data] = model.state.schedule.filter(
     (round) => round.round === roundNr
   );

@@ -1,21 +1,26 @@
-export default class View {
-  render(data) {
+import { Round, Schedule, State } from '../types/types';
+
+export default abstract class View {
+  abstract generateMarkup(data: Schedule | Round): string;
+  abstract get parentEl(): HTMLElement;
+
+  render(data: Schedule | Round) {
     const markup = this.generateMarkup(data);
-    this.clear();
+    this.clear(this.parentEl);
     this.parentEl.insertAdjacentHTML('beforeend', markup);
   }
 
-  clear() {
-    this.parentEl.innerHTML = '';
+  clear(parentEl: HTMLElement) {
+    parentEl.innerHTML = '';
   }
 
-  getDays(round) {
+  getDays(round: Round) {
     const firstDay = round.FirstPractice.date.slice(-2);
     const lastDay = round.date.slice(-2);
     return `${firstDay}-${lastDay}`;
   }
 
-  getMonth(round) {
+  getMonth(round: Round) {
     const months = [
       'Jan',
       'Feb',

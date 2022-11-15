@@ -1,20 +1,17 @@
-import View from './view';
+import { Round, Schedule } from '../types/types.js';
+import View from './view.js';
 
 class ScheduleView extends View {
-  parentEl = document.querySelector('.section-schedule');
   scheduleBtn = document.querySelector('.schedule');
+  parentEl: HTMLElement = document.querySelector('.section-schedule');
 
-  addHandlerClick(handler) {
+  addHandlerClick(handler: () => Promise<void>) {
     this.scheduleBtn.addEventListener('click', handler);
   }
 
-  addHandlerRenderModal(handler) {
-    this.scheduleBtn.addEventListener('click', handler);
-  }
-
-  generateMarkup(data) {
+  generateMarkup(data: Schedule) {
     return data
-      .map((round) => {
+      .map((round: Round) => {
         return `
           <div class="round-card" data-round="${round.round}">
             <p class="round-number">Round ${round.round}</p>      
