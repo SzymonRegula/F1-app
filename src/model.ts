@@ -8,8 +8,25 @@ export const state: State = {
   drivers: [],
 };
 
-export function changeSeason(year: string) {
+export function saveSchedule() {
+  state.schedules.push({
+    schedule: state.currentSchedule,
+    season: state.season,
+  });
+}
+
+export async function changeSeason(year: string) {
   state.season = year;
+
+  state.currentSchedule = state.schedules.find((schedule) => {
+    return schedule.season === year;
+  })?.schedule;
+
+  console.log(state.currentSchedule);
+  if (!state.currentSchedule) {
+    await getScheduleData(year);
+    saveSchedule();
+  }
 }
 
 export async function getScheduleData(season: string) {

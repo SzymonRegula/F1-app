@@ -12,22 +12,23 @@ import seasonView from './views/seasonView.js';
 import scheduleView from './views/scheduleView.js';
 import scheduleModalView from './views/scheduleModalView.js';
 function controlSeason(event) {
-    const choosenOption = event.target;
-    const year = choosenOption.value;
-    model.changeSeason(year);
+    return __awaiter(this, void 0, void 0, function* () {
+        const year = event.target.value;
+        scheduleView.renderSpinner();
+        yield model.changeSeason(year);
+        scheduleView.render(model.state.currentSchedule);
+    });
 }
 function controlSchedule() {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            if (model.state.currentSchedule.length === 0) {
+            if (((_a = model.state.currentSchedule) === null || _a === void 0 ? void 0 : _a.length) === 0) {
                 scheduleView.renderSpinner();
                 yield model.getScheduleData(model.state.season);
-                scheduleView.render(model.state.currentSchedule);
-                model.state.schedules.push({
-                    schedule: model.state.currentSchedule,
-                    season: model.state.season,
-                });
+                model.saveSchedule();
             }
+            scheduleView.render(model.state.currentSchedule);
         }
         catch (err) {
             console.error(err);
@@ -46,9 +47,10 @@ function showDrivers() {
     });
 }
 function init() {
+    controlSchedule();
     seasonView.addHandlerChange(controlSeason);
     scheduleView.addHandlerClick(controlSchedule);
-    scheduleModalView.addHandlerClick(controlScheduleModal);
+    // scheduleModalView.addHandlerClick(controlScheduleModal);
     // driversBtn.addEventListener('click', showDrivers);
     // sectionSchedule.addEventListener('click', showScheduleModal);
 }

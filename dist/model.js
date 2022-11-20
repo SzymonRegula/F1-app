@@ -14,8 +14,25 @@ export const state = {
     schedules: [],
     drivers: [],
 };
+export function saveSchedule() {
+    state.schedules.push({
+        schedule: state.currentSchedule,
+        season: state.season,
+    });
+}
 export function changeSeason(year) {
-    state.season = year;
+    var _a;
+    return __awaiter(this, void 0, void 0, function* () {
+        state.season = year;
+        state.currentSchedule = (_a = state.schedules.find((schedule) => {
+            return schedule.season === year;
+        })) === null || _a === void 0 ? void 0 : _a.schedule;
+        console.log(state.currentSchedule);
+        if (!state.currentSchedule) {
+            yield getScheduleData(year);
+            saveSchedule();
+        }
+    });
 }
 export function getScheduleData(season) {
     return __awaiter(this, void 0, void 0, function* () {
