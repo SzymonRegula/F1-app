@@ -1,5 +1,7 @@
 export type State = {
-  schedule: Schedule;
+  season: string;
+  currentSchedule: Schedule;
+  schedules: { schedule: Schedule; season: string }[];
   drivers: any[];
 };
 
@@ -18,15 +20,15 @@ export type Round = {
     url: string;
   };
   countryFlag: string;
-  FirstPractice: {
+  FirstPractice?: {
     date: string;
     time: string;
   };
-  Qualifying: {
+  Qualifying?: {
     date: string;
     time: string;
   };
-  SecondPractice: {
+  SecondPractice?: {
     date: string;
     time: string;
   };

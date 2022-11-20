@@ -38,8 +38,17 @@
         </nav>
       </div>
     </header>
-    <div class="container">
-      <main>
+    <main>
+      <div class="container">
+        <div class="season-select">
+          <label for="season-select">Choose season</label>
+          <select class="seasons" name="seasons" id="seasons-select">
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option selected value="2022">2022</option>
+          </select>
+        </div>
         <section class="section-schedule">
           <!-- <div class="round-card">
             <ul class="round-info-list">
@@ -56,8 +65,8 @@
         <section class="section-standings"></section>
         <section class="section-drivers"></section>
         <section class="section-teams"></section>
-      </main>
-    </div>
+      </div>
+    </main>
     <div class="modal-schedule hidden"></div>
     <div class="backdrop hidden">
       <!-- <img src="" alt="Formula 1 circuit" /> -->

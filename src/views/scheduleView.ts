@@ -10,25 +10,47 @@ class ScheduleView extends View {
   }
 
   generateMarkup(data: Schedule) {
+    return `
+      <div class="cards-grid">
+        ${this.generateCardMarkups(data)}
+      </div>
+    `;
+  }
+
+  generateCardMarkups(data: Schedule) {
     return data
       .map((round: Round) => {
         return `
           <div class="round-card" data-round="${round.round}">
             <p class="round-number">Round ${round.round}</p>      
             <ul class="round-info-list">
-              <li class="round-date days"><p>${this.getDays(round)}</p></li>
-              <li class="round-date month"><p>${this.getMonth(round)}</p></li>
+              ${
+                round.FirstPractice
+                  ? `<li class="round-date days"><p>${this.getDays(
+                      round
+                    )}</p></li>
+              <li class="round-date month"><p>${this.getMonth(round)}</p></li>`
+                  : ''
+              }
               <li class="flag"><img class="flag-img" src="${
                 round.countryFlag
               }" alt="${round.Circuit.Location.country} flag" /></li>
               <li class="country"><p>${round.Circuit.Location.country}</p></li>
               <li class="race-name"><p>${round.raceName}</p></li>
-              <li class="quali"><p><span class="font-bold">Qualifying:</span> ${
-                round.Qualifying.date
-              }, ${round.Qualifying.time.slice(0, 5)}</p></li>
+              ${
+                round?.Qualifying?.date
+                  ? `<li class="quali"><p><span class="font-bold">Qualifying:</span> ${
+                      round.Qualifying.date
+                    } ${
+                      round.Qualifying.time
+                        ? `${round.Qualifying.time.slice(0, 5)}`
+                        : ''
+                    }</p></li> `
+                  : ''
+              }
               <li class="race"><p><span class="font-bold">Race:</span> ${
                 round.date
-              }, ${round.time.slice(0, 5)}</p></li>
+              }, ${round.time?.slice(0, 5)}</p></li>
             </ul>
           </div> 
         `;

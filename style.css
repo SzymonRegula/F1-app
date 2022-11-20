@@ -74,9 +74,42 @@ body {
   background: rgba(0, 0, 0, 0.75);
 }
 
-/* SCHEDULE */
+.spinner {
+  margin: 0 auto;
+  /* transform: translate(50px 50px); */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #e20000;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 1s linear infinite;
+}
 
-.section-schedule {
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* SEASON SELECT */
+.season-select {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.seasons {
+  font-size: inherit;
+  width: fit-content;
+}
+
+/* SCHEDULE */
+.cards-grid {
   display: grid;
   gap: 3rem;
   row-gap: 6rem;
@@ -87,7 +120,7 @@ body {
 .round-card {
   margin-top: 1rem;
   position: relative;
-  padding: 1rem;
+  padding: 1rem 1rem 1rem 0;
   padding-bottom: 0;
   border-top: 0.2rem solid #111;
   border-right: 0.2rem solid #111;
@@ -110,13 +143,17 @@ body {
   list-style: none;
 }
 
+.round-info-list li:nth-child(2) {
+  border: none;
+}
+
 .round-number {
   position: absolute;
   color: #e20000;
   font-weight: 500;
   top: -5%;
   left: 0;
-  padding: 0 1rem;
+  padding-right: 1rem;
   background: #fff;
 }
 

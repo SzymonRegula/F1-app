@@ -1,11 +1,18 @@
 export default class View {
     render(data) {
         const markup = this.generateMarkup(data);
-        this.clear(this.parentEl);
+        this.clear();
         this.parentEl.insertAdjacentHTML('beforeend', markup);
     }
-    clear(parentEl) {
-        parentEl.innerHTML = '';
+    renderSpinner() {
+        const markup = `
+      <div class="spinner"></div>
+      `;
+        this.clear();
+        this.parentEl.insertAdjacentHTML('afterbegin', markup);
+    }
+    clear() {
+        this.parentEl.innerHTML = '';
     }
     getDays(round) {
         const firstDay = round.FirstPractice.date.slice(-2);

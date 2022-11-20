@@ -2,16 +2,24 @@ import { Round, Schedule, State } from '../types/types';
 
 export default abstract class View {
   abstract generateMarkup(data: Schedule | Round): string;
-  abstract get parentEl(): HTMLElement;
+  parentEl: HTMLElement;
 
   render(data: Schedule | Round) {
     const markup = this.generateMarkup(data);
-    this.clear(this.parentEl);
+    this.clear();
     this.parentEl.insertAdjacentHTML('beforeend', markup);
   }
 
-  clear(parentEl: HTMLElement) {
-    parentEl.innerHTML = '';
+  renderSpinner() {
+    const markup = `
+      <div class="spinner"></div>
+      `;
+    this.clear();
+    this.parentEl.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  clear() {
+    this.parentEl.innerHTML = '';
   }
 
   getDays(round: Round) {

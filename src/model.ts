@@ -2,37 +2,43 @@ import { API_F1_URL, API_SPORTS_KEY, API_SPORTS_URL } from './config.js';
 import { State } from './types/types.js';
 
 export const state: State = {
-  schedule: [],
+  season: `${new Date().getFullYear()}`,
+  currentSchedule: [],
+  schedules: [],
   drivers: [],
 };
 
-export async function getScheduleData() {
+export function changeSeason(year: string) {
+  state.season = year;
+}
+
+export async function getScheduleData(season: string) {
   try {
-    // render spinner needed
-    const response = await fetch(`${API_F1_URL}current.json`);
+    const response = await fetch(`${API_F1_URL}${season}.json`);
     const data = await response.json();
-    console.log(data.MRData.RaceTable.Races);
-    state.schedule = data.MRData.RaceTable.Races;
+    console.log(data);
+    state.currentSchedule = data.MRData.RaceTable.Races;
+    console.log(state.currentSchedule);
 
     const flagPromises: Promise<string>[] = [];
-    state.schedule.forEach((round) => {
+    state.currentSchedule.forEach((round) => {
       flagPromises.push(getFlag(round.Circuit.Location.country));
     });
     await Promise.all(flagPromises).then((flags) => {
-      state.schedule.forEach((round, i) => {
+      state.currentSchedule.forEach((round, i) => {
         round.countryFlag = flags[i];
       });
     });
 
-    console.log(state.schedule);
+    console.log(state.currentSchedule);
   } catch (err) {
     console.error(err);
   }
 }
 
-export async function getDriversData() {
+export async function getDriversData(season: string) {
   try {
-    const response = await fetch(`${API_F1_URL}current/drivers.json`);
+    const response = await fetch(`${API_F1_URL}${season}/drivers.json`);
     const data = await response.json();
     state.drivers = data.MRData.DriverTable.Drivers;
     console.log('drivers', state.drivers);
